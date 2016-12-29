@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}江西省公安厅大数据实战应用平台 - 意见反馈系统{% endblock %}</title>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI"/>
+    <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='img/app-icon72x72@2x.png')}}">
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/app-icon72x72@2x.png')}}">
+    <meta name="msapplication-TileColor" content="#0e90d2">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/police.ico')}}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='img/police.ico')}}" type="image/x-icon">
+    {% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css')}}">
+    {% endblock %}
+    <!--[if lt IE 9]>
+        <script src="{{ url_for('static', filename='js/html5shiv.min.js')}}"></script>
+        <script src="{{ url_for('static', filename='js/respond.min.js')}}"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="nav-header">
+		<div class="container">
+			<img src="{{ url_for('static', filename='img/u01.png')}}" class="banner"/>
+			<div class="clearfix"></div>
+		</div>
+	</div>
+	<div class="main-wrapper subpage">
+		<div class="container">
+            {% block content %}{% endblock %}
+		</div>
+	</div>
+    <div class="footer">
+        <div class="container">
+			<div style="padding-top:45px; text-align:center; font-size:1.4rem;">江西省公安厅&nbsp;&copy;&nbsp;2016&nbsp;版权所有<br>公安部第三研究所&nbsp;&nbsp;|&nbsp;&nbsp;技术支持：0791-6668956</div>
+        </div>
+    </div>
+    {% block js %}
+    <script src="{{ url_for('static', filename='js/jquery-3.1.1.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/common.js')}}"></script>
+    {% endblock %}
+</body>
+</html>

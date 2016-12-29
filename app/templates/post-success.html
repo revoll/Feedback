@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}提交成功 | 江西公安大数据平台意见反馈系统{% endblock %}
+
+{% block content %}
+    <br><br>
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-1">
+            <h1>提交成功，谢谢！</h1>
+            <br>
+            <span class="text-info">自动跳转（5秒） ...... </span>
+            <button type="button" class="btn btn-default btn-sm" onclick="redirect();">立即跳转</button>
+        </div>
+        <form id="go-back-form" action="{{ url_for('.add_feedback') }}" method="POST">
+            <input name="name" type="hidden" value="{{ name }}" />
+            <input name="id_number" type="hidden" value="{{ id_number }}" />
+            <input name="dept" type="hidden" value="{{ dept }}" />
+            <input name="contact" type="hidden" value="{{ contact }}" />
+        </form>
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script type="text/javascript">
+        function redirect() {
+            $("#go-back-form").submit();
+        }
+        setInterval(redirect, 5000);
+    </script>
+{% endblock %}

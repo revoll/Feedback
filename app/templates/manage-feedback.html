@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% import "_macros.html" as macros %}
+
+{% block title %}首页 | 江西公安大数据平台意见反馈系统{% endblock %}
+
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/feedback.css') }}"
+          xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+{% block content %}
+    <h1>意见管理</h1>
+    <hr>
+    {% for feedback in feedbacks %}
+    <div class="feed-magnet">
+        <div class="feed-title">
+            <div class="subject float-left">{{ subjects[feedback.subject] }}</div>
+            <div class="info float-left">
+                <span>用户：{{ feedback.author_name }}</span>
+                <span>部门：{{ feedback.author_dept }}</span>
+                <span>{{ feedback.time }}</span>
+            </div>
+            <button class="btn btn-danger float-right" onclick="_execute_url('{{ url_for(".delete_feedback", id=feedback.id) }}')">删除</button>
+            <a class="btn btn-primary float-right" href="{{ url_for('.feedback_detail', id=feedback.id) }}">详情</a>
+            {% if feedback.read_flag %}
+                <button class="btn btn-success float-right" onclick="_execute_url('{{ url_for(".mark_unsolved", id=feedback.id) }}')">已处理</button>
+            {% else %}
+                <button class="btn btn-warning float-right" onclick="_execute_url('{{ url_for(".mark_solved", id=feedback.id) }}')">未处理</button>
+            {% endif %}
+            <div class="clearfix"></div>
+        </div>
+        <div class="feed-content">
+            <p>{{ feedback.content }}</p>
+            <div>{{ feedback.appends|safe }}</div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if pagination %}
+    <div class="pagination">
+        {{ macros.pagination_widget(pagination, '.manage_feedback') }}
+    </div>
+    {% endif %}
+{% endblock %}
+
+{% block js %}
+    {{ super() }}
+    <script type="text/javascript">
+        function _execute_url(url) {
+            $.ajax({
+                url : url,
+                success:function() {
+                    window.location.reload();
+                },
+                error: function () {
+                    alert('操作失败！');
+                }
+            });
+        }
+    </script>
+{% endblock %}

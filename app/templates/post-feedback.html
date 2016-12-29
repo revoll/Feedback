@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}意见反馈 | 江西公安大数据平台意见反馈系统{% endblock %}
+
+{% block content %}
+    <h1>意见与建议
+        <a href="{{ url_for('.manage_feedback') }}" class="btn btn-primary btn-lg float-right{% if not admin %} hidden{% endif %}" role="button">管理面板</a></h1>
+    <hr>
+
+    <form class="form-horizontal" action="{{ url_for('main.add_feedback') }}" method="post" enctype="multipart/form-data" role="form">
+        {{ form.hidden_tag() }}
+
+        {{ form.author_name(type="hidden") }}
+        {{ form.author_id(type="hidden") }}
+        {{ form.author_dept(type="hidden") }}
+        {{ form.author_contact(type="hidden") }}
+
+        <div class="form-group">
+            <label for="feedback-type" class="col-sm-2 control-label">类型</label>
+            <div class="col-sm-3">
+                {{ form.subject(id="feedback-type", class="form-control") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="feedback-content" class="col-sm-2 control-label">意见及建议</label>
+            <div class="col-sm-8">
+                {{ form.content(id="feedback-content", class="form-control", rows="12", placeholder="说点什么吧......") }}
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label">上传图片</label>
+            <div class="col-sm-4" id="file-inputs">
+                <input type="file" class="form-control" name="u0"/>
+            </div>
+            <button type="button" class="btn btn-warning" onclick="append_input();">添加</button>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                {{ form.submit(value="提交", class="btn btn-primary") }}
+            </div>
+        </div>
+    </form>
+{% endblock %}
+
+{% block js %}
+{{ super() }}
+    <script type="text/javascript">
+        var counter = 0;
+        function append_input() {
+            var input = '<input type="file" class="form-control" name="u';
+            counter++;
+            input = input + counter.toString() + '"/>';
+            $('#file-inputs').append(input);
+        }
+    </script>
+{% endblock %}

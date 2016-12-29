@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}首页 | 江西公安大数据平台意见反馈系统{% endblock %}
+
+{% block css %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/feedback.css')}}">
+{% endblock %}
+
+{% block content %}
+    <h1>关于：{{ subjects[feedback.subject] }}
+        <a href="{{ url_for('.manage_feedback') }}" class="btn btn-primary btn-lg float-right" role="button">管理面板</a>
+    </h1>
+    <hr>
+
+    <dl class="feed-info dl-horizontal">
+        <dt>姓名：</dt>
+        <dd>{{ feedback.author_name }}</dd>
+        <dt>身份证号：</dt>
+        <dd>{{ feedback.author_id }}</dd>
+        <dt>所属部门：</dt>
+        <dd>{{ feedback.author_dept }}</dd>
+        <dt>联系方式：</dt>
+        <dd>{{ feedback.author_contact }}</dd>
+    </dl>
+
+    <div class="feed-magnet">
+        <div class="feed-title">
+            <div class="subject">投递时间：{{ feedback.time }}</div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="feed-content">
+            <p>{{ feedback.content }}</p>
+            {{ feedback.appends|safe }}
+        </div>
+    </div>
+
+{% endblock %}
